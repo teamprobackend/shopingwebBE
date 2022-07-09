@@ -11,6 +11,7 @@
     "anymatch": "^3.1.2",
     "array-flatten": "^1.1.1",
     "balanced-match": "^1.0.2",
+    "bcrypt": "^5.0.1",
     "binary-extensions": "^2.2.0",
     "body-parser": "^1.20.0",
     "boxen": "^5.1.2",
@@ -67,6 +68,7 @@
     "has-flag": "^3.0.0",
     "has-symbols": "^1.0.3",
     "has-yarn": "^2.1.0",
+    "helmet": "^5.1.0",
     "http-cache-semantics": "^4.1.0",
     "http-errors": "^2.0.0",
     "iconv-lite": "^0.4.24",
@@ -90,6 +92,7 @@
     "is-typedarray": "^1.0.0",
     "is-yarn-global": "^0.3.0",
     "json-buffer": "^3.0.0",
+    "jsonwebtoken": "^8.5.1",
     "keyv": "^3.1.0",
     "latest-version": "^5.1.0",
     "lodash": "^4.17.21",
@@ -107,6 +110,7 @@
     "minimist": "^1.2.6",
     "moment": "^2.29.3",
     "moment-timezone": "^0.5.34",
+    "morgan": "^1.10.0",
     "ms": "^2.1.2",
     "mysql2": "^2.3.3",
     "negotiator": "^0.6.3",
@@ -143,6 +147,7 @@
     "semver-diff": "^3.1.1",
     "send": "^0.18.0",
     "sequelize": "^6.21.2",
+    "sequelize-cli": "^6.4.1",
     "sequelize-pool": "^7.1.0",
     "serve-static": "^1.15.0",
     "setprototypeof": "^1.2.0",
@@ -179,7 +184,6 @@
     "yallist": "^4.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
   },
   "author": "",
