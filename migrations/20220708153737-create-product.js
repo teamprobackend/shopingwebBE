@@ -22,17 +22,29 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      image: {
+      image1: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
       },
-      category: {
+      image2: {
+        type: Sequelize.STRING
+      },
+      image3:{
+        type: Sequelize.STRING
+      },
+      categoryId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Categories',
           key: 'id'
-        },
-        allowNull: false
+        }
+      },
+      labelId:{
+        type: Sequelize.INTEGER,
+        references:{
+          model: 'Labels',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,

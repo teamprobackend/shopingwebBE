@@ -35,7 +35,7 @@ module.exports = {
         },
         allowNull: false
       },
-      state: {
+      status: {
         type: Sequelize.ENUM(['waiting','on process','finish']),
         defaultValue: 'waiting'
       },

@@ -43,9 +43,12 @@ module.exports = {
         collate: 'utf8_general_ci',
         allowNull: true
       },
-      role: {
-        type: Sequelize.ENUM(['customer','staff','admin']),
-        defaultValue: 'customer'
+      roleId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Roles',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,
