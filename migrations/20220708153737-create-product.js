@@ -8,23 +8,22 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      STT:{
+        type: Sequelize.INTEGER
+      },
       productName: {
         type: Sequelize.STRING,
         charset: 'utf8',
-        collate: 'utf8_general_ci',
-        allowNull: false
+        collate: 'utf8_general_ci'
       },
       price: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+        type: Sequelize.INTEGER
       },
       quantity: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+        type: Sequelize.INTEGER
       },
       image1: {
-        type: Sequelize.STRING,
-        allowNull: true
+        type: Sequelize.STRING
       },
       image2: {
         type: Sequelize.STRING
@@ -45,6 +44,11 @@ module.exports = {
           model: 'Labels',
           key: 'id'
         }
+      },
+      description:{
+        type: Sequelize.STRING,
+        charset: 'utf8',
+        collate: 'utf8_general_ci'
       },
       createdAt: {
         allowNull: false,

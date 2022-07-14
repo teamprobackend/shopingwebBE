@@ -27,7 +27,9 @@ module.exports = (sequelize, DataTypes) => {
     screenFeature: DataTypes.STRING,
     weight: DataTypes.STRING,
     bluetooth: DataTypes.STRING,
-    refreshRate: DataTypes.STRING
+    refreshRate: DataTypes.STRING,
+    STT: DataTypes.INTEGER,
+    quantity: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'PhonesCategory',

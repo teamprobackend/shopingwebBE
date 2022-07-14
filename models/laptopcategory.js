@@ -25,7 +25,9 @@ module.exports = (sequelize, DataTypes) => {
     ports: DataTypes.STRING,
     OS: DataTypes.STRING,
     weight: DataTypes.STRING,
-    screenTechnology: DataTypes.STRING
+    screenTechnology: DataTypes.STRING,
+    STT: DataTypes.INTEGER,
+    quantity: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'LaptopCategory',

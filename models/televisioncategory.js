@@ -23,7 +23,9 @@ module.exports = (sequelize, DataTypes) => {
     audioTechnology: DataTypes.STRING,
     OS: DataTypes.STRING,
     label: DataTypes.STRING,
-    feature: DataTypes.STRING
+    feature: DataTypes.STRING,
+    STT: DataTypes.INTEGER,
+    quantity: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'TelevisionCategory',

@@ -11,8 +11,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
         charset: 'utf8',
-        collate: 'utf8_general_ci',
-        allowNull: false
+        collate: 'utf8_general_ci'
       },
       quantity:{
         type: Sequelize.INTEGER,
@@ -28,6 +27,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Labels');
+    await queryInterface.dropTable('Categories');
   }
 };

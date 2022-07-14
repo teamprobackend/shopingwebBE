@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     receiverName: DataTypes.STRING,
     receiverAddress: DataTypes.STRING,
     receiverPhone: DataTypes.STRING,
-    state: DataTypes.ENUM(['waiting','on process','finish'])
+    status: DataTypes.ENUM(['waiting','on process','finish'])
   }, {
     sequelize,
     modelName: 'Bill',

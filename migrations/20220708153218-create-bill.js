@@ -18,22 +18,19 @@ module.exports = {
       receiverName: {
         type: Sequelize.STRING,
         charset: 'utf8',
-        collate: 'utf8_general_ci',
-        allowNull: false
+        collate: 'utf8_general_ci'
       },
       receiverAddress: {
         type: Sequelize.STRING,
         charset: 'utf8',
-        collate: 'utf8_general_ci',
-        allowNull: false
+        collate: 'utf8_general_ci'
       },
       receiverPhone: {
         type: Sequelize.STRING,
         validate: {
           min: 10,
           max: 10
-        },
-        allowNull: false
+        }
       },
       status: {
         type: Sequelize.ENUM(['waiting','on process','finish']),

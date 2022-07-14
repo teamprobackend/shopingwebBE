@@ -8,6 +8,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      STT:{
+        type: Sequelize.INTEGER
+      },
       categoryId:{
         type: Sequelize.INTEGER,
         references: {

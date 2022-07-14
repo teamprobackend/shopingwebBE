@@ -26,7 +26,9 @@ module.exports = (sequelize, DataTypes) => {
     screenFeatures: DataTypes.STRING,
     CPU: DataTypes.STRING,
     weight: DataTypes.STRING,
-    bluetooth: DataTypes.STRING
+    bluetooth: DataTypes.STRING,
+    STT: DataTypes.INTEGER,
+    quanity: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'IpadCategory',

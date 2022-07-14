@@ -11,37 +11,32 @@ module.exports = {
       username: {
         type: Sequelize.STRING,
         charset:' utf8',
-        collate: 'utf8_general_ci',
-        allowNull: false
+        collate: 'utf8_general_ci'
       },
       password: {
         type: Sequelize.STRING,
         validate: {
           min: 8,
           max: 16
-        },
-        allowNull: false
+        }
       },
       email: {
         type: Sequelize.STRING,
         validate: {
           isEmail: true
-        },
-        allowNull: true
+        }
       },
       phone: {
         type: Sequelize.STRING,
         validate: {
           min: 10,
           max: 10
-        },
-        allowNull: true
+        }
       },
       address: {
         type: Sequelize.STRING,
         charset: 'utf8',
         collate: 'utf8_general_ci',
-        allowNull: true
       },
       roleId: {
         type: Sequelize.INTEGER,
