@@ -27,7 +27,7 @@ const createSendToken = (user, statusCode, res) => {
 exports.signup = async (req, res, next) => {
     try {
         const { email, phone, pass } = req.body
-        console.log(req.body)
+        console.log(req.body.phone)
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(pass, salt)
         if (email) {
@@ -44,7 +44,7 @@ exports.signup = async (req, res, next) => {
             })
             createSendToken(newUser, 200, res)
         }
-        if (phone) {
+        else if (phone) {
             const userCheck = await db.User.findOne({ where: { phone: phone } })
             if (userCheck) {
                 return res.status(404).json({
@@ -68,26 +68,50 @@ exports.signup = async (req, res, next) => {
 }
 
 exports.login = async (req, res, next) => {
-    const { email, phone, pass } = req.body
-    if (email) {
-        const currentUser = await db.User.findOne({ where: { email: email } })
-        if (!currentUser || !(await bcrypt.compare(pass, currentUser.password))) {
-            return res.status(403).json({
-                status: 'fail',
-                err: 'Sai thông tin đăng nhập'
-            })
+    try {
+        const { email, phone, pass } = req.body
+        if (email) {
+            const currentUser = await db.User.findOne({ where: { email: email } })
+            if (!currentUser || !(await bcrypt.compare(pass, currentUser.password))) {
+                return res.status(403).json({
+                    status: 'fail',
+                    err: 'Sai thông tin đăng nhập'
+                })
+            }
+            createSendToken(currentUser, 200, res)
         }
-        createSendToken(currentUser, 200, res)
+        if (phone) {
+            const currentUser = await db.User.findOne({ where: { phone: phone } })
+            if (!currentUser || !(await bcrypt.compare(pass, currentUser.password))) {
+                return res.status(403).json({
+                    status: 'fail',
+                    err: 'Sai thông tin đăng nhập'
+                })
+            }
+            createSendToken(currentUser, 200, res)
+        }
+    } catch (err) {
+        res.status(403).json({
+            err
+        })
     }
-    if (phone) {
-        const currentUser = await db.User.findOne({ where: { phone: phone } })
-        if (!currentUser || !(await bcrypt.compare(pass, currentUser.password))) {
-            return res.status(403).json({
-                status: 'fail',
-                err: 'Sai thông tin đăng nhập'
-            })
+}
+
+exports.logout = async (req, res, next) => {
+    try {
+        let token
+        if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+            token = req.headers.authorization.split(' ')[1]
         }
-        createSendToken(currentUser, 200, res)
+        token = null
+        return res.status(200).json({
+            status: 'Logout success',
+            token
+        })
+    } catch (err) {
+        res.status(403).json({
+            err
+        })
     }
 }
 
@@ -119,7 +143,9 @@ exports.protect = async (req, res, next) => {
         next()
     }
     catch (err) {
-
+        res.status(403).json({
+            err
+        })
     }
 }
 
@@ -129,6 +155,7 @@ exports.protect = async (req, res, next) => {
 //         if(!roles.includes(req.user.))
 //     }
 // }
+
 // Quên mật khẩu
 // exports.forgotPassword = async (req, res, next) => {
 
@@ -136,21 +163,27 @@ exports.protect = async (req, res, next) => {
 
 exports.updatePassword = async (req, res, next) => {
     // 1) Get user
-    const user = await db.User.findOne({ where: { id: req.user.id } })
-    console.log(user.password)
-    // 2) Check current pass is correct
-    const checkPass = await bcrypt.compare(req.body.currentPass, user.password)
-    if (!checkPass) {
-        return res.status(403).json({
-            status: 'fail',
-            err: 'Sai mật khẩu'
+    try {
+        const user = await db.User.findOne({ where: { id: req.user.id } })
+        console.log(user.password)
+        // 2) Check current pass is correct
+        const checkPass = await bcrypt.compare(req.body.currentPass, user.password)
+        if (!checkPass) {
+            return res.status(403).json({
+                status: 'fail',
+                err: 'Sai mật khẩu'
+            })
+        }
+        // 3) Ok -> update
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(req.body.newPass, salt)
+        user.password = hashedPassword
+        await user.save()
+        createSendToken(user, 200, res)
+    } catch (err) {
+        res.status(403).json({
+            err
         })
     }
-    // 3) Ok -> update
-    const salt = await bcrypt.genSalt(10)
-    const hashedPassword = await bcrypt.hash(req.body.newPass, salt)
-    user.password = hashedPassword
-    await user.save()
-    createSendToken(user, 200, res)
 }
 

@@ -10,7 +10,7 @@ module.exports = {
       },
       username: {
         type: Sequelize.STRING,
-        charset:' utf8',
+        charset: ' utf8',
         collate: 'utf8_general_ci',
         allowNull: false
       },
@@ -42,6 +42,13 @@ module.exports = {
         charset: 'utf8',
         collate: 'utf8_general_ci',
         allowNull: false
+      },
+      roleId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Role',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,
