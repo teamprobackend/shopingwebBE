@@ -2,7 +2,7 @@
   1) Open XAMPP and start APACHE server and MYSQL
   2) In browser, type: http://localhost/phpmyadmin
   3) New -> Look at Create database -> Database name, type: shopingwebdb -> Create
-  4) shopingwebdb -> Import -> File to import -> Choose file shopingwebdb.sql -> Import
+  4) shopingwebdb -> Import(or Browse) -> File to import -> Choose file shopingwebdb.sql -> Import
 
 +) BE CODE:
   *) Package required: dotenv, cors, morgan, helmet, express
