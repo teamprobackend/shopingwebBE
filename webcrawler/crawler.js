@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const url = "https://cellphones.com.vn/";
+const db = require('../model/index.js');
 
 (async ()=>{
   const browser = await puppeteer.launch();
@@ -8,7 +9,7 @@ const url = "https://cellphones.com.vn/";
 
   await page.goto(url);
   let unlabeled = [];
-  const data = await page.evaluate((unlabeled)=>{
+  const data = await page.evaluate((unlabeled,productDetail)=>{
     const labels = [
     "Xiaomi",
     "Samsung",
@@ -44,6 +45,7 @@ const url = "https://cellphones.com.vn/";
     };
     let block_featured_products = document.querySelectorAll('.block-featured-product');
     let products_data = {};
+    //let productDetail = {};
     let products_data_list = [];
     let products_data_list_element;
     let i = 0;
@@ -54,6 +56,7 @@ const url = "https://cellphones.com.vn/";
       for(let product_link_index=0;product_link_index<product_links.length;product_link_index++){
         let product_discription = '';
         let product_link = product_links[product_link_index];
+        let this_product_href = product_link.href;
         if(product_link.querySelector('.gift-cont')) product_discription = product_link.querySelector('.gift-cont').innerText;
         if(product_link.querySelector('.coupon-price')) product_discription = product_link.querySelector('.coupon-price').innerText;
         i += 1;
@@ -67,7 +70,8 @@ const url = "https://cellphones.com.vn/";
           'discription': product_discription,
           'STT': i,
           'quantity': 10,
-          'label': setLabel(product_link.querySelector('.product__name h3').innerText)
+          'label': setLabel(product_link.querySelector('.product__name h3').innerText),
+          'productDetail': [i,this_product_href]
         };
         product_data[product_link_index+1] = dataobj;
         products_data[category] = product_data;
@@ -75,16 +79,28 @@ const url = "https://cellphones.com.vn/";
       }
       products_data_list.push(products_data_list_element);
     }
-    return [products_data_list,unlabeled];
+    return [products_data_list,unlabeled,productDetail];
   },unlabeled);
-
+  //console.log(JSON.stringify(data[0]));
+  let productDetailList = [];
+  for(let category of data[0]){
+    Object.keys(category[1]).forEach(product => {
+      productDetailList.push(category[1][product]['productDetail']);
+      //console.log(category[1][product]['productDetail']);
+    })
+  }
+  console.log(productDetailList);
+  fs.writeFile('productDetail.json',JSON.stringify(productDetailList),(err)=>{
+    console.log(err);
+  })
+  /*
   fs.writeFile('data.json',JSON.stringify(data[0]),(err)=>{
     if(err) console.log(err);
   });
 
   fs.writeFile('unlabeled.json',JSON.stringify(data[1]),(err)=>{
     if(err) console.log(err);
-  })
+  })*/
 
   /*
   fs.readFile('data.json',async (err,data)=>{

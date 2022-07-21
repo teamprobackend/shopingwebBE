@@ -5,5 +5,13 @@ const userController = require('./../controller/userController')
 router.post('/signup', authController.signup)
 router.post('/login', authController.login)
 router.patch('/updateYourPassword', authController.protect, authController.updatePassword)
-router.patch('/updateMe', authController.protect, userController.updateMe)
+
+
+router.use(authController.protect)
+router.patch('/updateMe', userController.updateMe)
+//router.get('/getMe', userController.getMe)
+
+//router.use(authController.restrictTo('Admin'))
+//router.get('/getAllUsers', userController.getAllUsers)
+//router.route('/:id').get(userController.getUser).patch(userController.updateUser).delete(userController.deleteUser)
 module.exports = router

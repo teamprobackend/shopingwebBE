@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     weight: DataTypes.STRING,
     bluetooth: DataTypes.STRING,
     refreshRate: DataTypes.STRING,
-    STT: DataTypes.INTEGER,
+    product_id: DataTypes.INTEGER,
     quantity: DataTypes.INTEGER
   }, {
     sequelize,

@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      STT:{
+      product_id:{
         type: Sequelize.INTEGER
       },
       categoryId:{
@@ -59,6 +59,9 @@ module.exports = {
       },
       refreshRate: {
         type: Sequelize.STRING
+      },
+      quantity: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

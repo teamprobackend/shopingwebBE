@@ -43,7 +43,8 @@ module.exports = {
         references: {
           model: 'Roles',
           key: 'id'
-        }
+        },
+        default: 1
       },
       createdAt: {
         allowNull: false,
