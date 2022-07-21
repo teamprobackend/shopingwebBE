@@ -1,0 +1,11 @@
+PORT = 8888 || 3000
+signup(POST):          localhost:PORT/api/v1/users/signup
+login(POST):           localhost:PORT/api/v1/users/login
+updatePassword(PATCH): localhost:PORT/api/v1/users/updateYourPassword
+updateMe(PATCH):       localhost:PORT/api/v1/users/updateMe
+
+getProduct(GET):       localhost:PORT/api/v1/getProduct
+
+DB HANDLER:
+  npm i sequelize-cli
+  npx sequelize:db migrate
