@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const url = "https://cellphones.com.vn/";
-const db = require('../model/index.js');
+//const db = require('../model/index.js');
 
 (async ()=>{
   const browser = await puppeteer.launch();
@@ -9,7 +9,12 @@ const db = require('../model/index.js');
 
   await page.goto(url);
   let unlabeled = [];
-  const data = await page.evaluate((unlabeled,productDetail)=>{
+  const data = await page.evaluate(async (unlabeled,productDetail)=>{
+    function sleep(ms) {
+      return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+      });
+    }
     const labels = [
     "Xiaomi",
     "Samsung",
@@ -60,10 +65,11 @@ const db = require('../model/index.js');
         if(product_link.querySelector('.gift-cont')) product_discription = product_link.querySelector('.gift-cont').innerText;
         if(product_link.querySelector('.coupon-price')) product_discription = product_link.querySelector('.coupon-price').innerText;
         i += 1;
+        await sleep(3000)
         let dataobj = {
           'image':{
-            'src': product_link.querySelector('.product__img').src,
-            'alt': product_link.querySelector('.product__img').alt
+            'src': product_link.querySelector('.product__img').getAttributes("src"),
+            'alt': product_link.querySelector('.product__img').getAttributes("alt")
           },
           'productName': product_link.querySelector('.product__name h3').innerText,
           'price': product_link.querySelector('.box-info__box-price p').innerText,
@@ -81,7 +87,8 @@ const db = require('../model/index.js');
     }
     return [products_data_list,unlabeled,productDetail];
   },unlabeled);
-  //console.log(JSON.stringify(data[0]));
+  console.log(JSON.stringify(data[0]));
+  /*
   let productDetailList = [];
   for(let category of data[0]){
     Object.keys(category[1]).forEach(product => {
