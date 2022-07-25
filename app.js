@@ -18,5 +18,5 @@ app.use(express.static(`${__dirname}/public`))
 
 // Route hander
 app.use('/api/v1/users', userRouter)
-app.use('/api/v1', productRouter)
+app.use('/api/v1/products', productRouter)
 module.exports = app

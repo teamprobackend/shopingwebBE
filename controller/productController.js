@@ -1,4 +1,5 @@
-const db = require('./../models/index')
+const db = require('../models/index')
+const productServices = require('../services/productServices')
 const fs = require('fs')
 exports.getAllProduct = async (req, res) => {
     try {
@@ -25,6 +26,8 @@ exports.getAllProduct = async (req, res) => {
             }
           }
         }*/
+        const allProducts = await productServices.getAllProducts();
+        /*
         const allProducts = await db.Products.findAll({
           include:[
             {model: db.Categories,as:'Categories',attributes:['name']},
@@ -40,10 +43,10 @@ exports.getAllProduct = async (req, res) => {
           if(products[category] === undefined) products[category] = {}
           if(products[category][label] === undefined) products[category][label] = []
           products[category][label].push(product)
-        }
+        } */
         return res.status(200).json({
             status: "success",
-            dataProduct: products
+            dataProduct: allProducts
         })
     } catch (err) {
         res.status(404).json({
@@ -55,6 +58,7 @@ exports.getAllProduct = async (req, res) => {
 
 exports.getOneProduct = async (req, res) => {
     try {
+        /*
         const oneProduct = await db.Products.findByPk(req.params.id, {
             include: [
                 {
@@ -68,7 +72,8 @@ exports.getOneProduct = async (req, res) => {
 
                 }
             ]
-        })
+        })*/
+        const oneProduct = await productServices.getProductById(req.params.id)
         // const productDetail = await db.Categories.findByPk(oneProduct.categoryId,{})
         return res.status(200).json({
             status: "success",
@@ -82,6 +87,7 @@ exports.getOneProduct = async (req, res) => {
     }
 }
 
+/*
 exports.createBill = async (req, res, next) => {
     try {
 
@@ -131,3 +137,4 @@ exports.buyProduct = async (req, res) => {
         })
     }
 }
+*/
