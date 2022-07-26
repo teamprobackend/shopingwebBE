@@ -3,9 +3,9 @@ const db = require('../models/index')
 exports.createBill = async(customerId,body) => {
   const bill = await db.Bills.create({
     customerId: req.user.id,
-    receiverName: req.billItem.receiverName,
-    receiverPhone: req.billItem.receiverPhone,
-    receiverAddress: req.billItem.receiverAddress
+    receiverName: body.receiverName,
+    receiverPhone: body.receiverPhone,
+    receiverAddress: body.receiverAddress
   })
   return bills
 }

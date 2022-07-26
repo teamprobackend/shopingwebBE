@@ -17,7 +17,6 @@ exports.signup = async (req, res, next) => {
 }
 
 exports.login = async (req, res, next) => {
-    //const { email, phone, pass } = req.body
     try{
       await authServices.login(req.body)
     }catch(err){
@@ -28,17 +27,6 @@ exports.login = async (req, res, next) => {
     }
 }
 
-
-// Phân quyền
-// exports.restrictTo = (...roles) => {
-//     return(req,res,next)=>{
-//         if(!roles.includes(req.user.))
-//     }
-// }
-// Quên mật khẩu
-// exports.forgotPassword = async (req, res, next) => {
-
-// }
 
 exports.updatePassword = async (req, res, next) => {
     try{

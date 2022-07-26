@@ -11,9 +11,5 @@ router.patch('/updateYourPassword', authController.updatePassword)
 router.patch('/updateMe', userController.updateMe)
 router.get('/checkProductQuantity',userController.checkProductQuantity)
 router.post('/sendBuyRequest',userController.buyProduct)
-//router.get('/getMe', userController.getMe)
 
-//router.use(authController.restrictTo('Admin'))
-//router.get('/getAllUsers', userController.getAllUsers)
-//router.route('/:id').get(userController.getUser).patch(userController.updateUser).delete(userController.deleteUser)
 module.exports = router
