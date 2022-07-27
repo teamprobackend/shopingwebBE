@@ -14,11 +14,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Bill.init({
-    customerId: DataTypes.INTEGER,
+    customerId: DataTypes.STRING,
     receiverName: DataTypes.STRING,
     receiverAddress: DataTypes.STRING,
     receiverPhone: DataTypes.STRING,
-    status: DataTypes.ENUM(['waiting','on process','finish'])
+    status: DataTypes.ENUM(['waiting', 'on process', 'finish'])
   }, {
     sequelize,
     modelName: 'Bill',

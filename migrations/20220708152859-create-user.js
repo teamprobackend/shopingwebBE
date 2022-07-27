@@ -4,13 +4,12 @@ module.exports = {
     await queryInterface.createTable('Users', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       username: {
         type: Sequelize.STRING,
-        charset:' utf8',
+        charset: ' utf8',
         collate: 'utf8_general_ci'
       },
       password: {
@@ -40,11 +39,14 @@ module.exports = {
       },
       roleId: {
         type: Sequelize.INTEGER,
+        defaultValue: 1,
         references: {
           model: 'Roles',
           key: 'id'
-        },
-        default: 1
+        }
+      },
+      tokenChangePass: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -56,6 +58,8 @@ module.exports = {
       }
     });
   },
+
+
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Users');
   }

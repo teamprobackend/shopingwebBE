@@ -1,9 +1,11 @@
-exports.protect = async (req, res, next) => {
+import jwt from 'jsonwebtoken'
+
+export const protect = async (req, res, next) => {
     try {
         // 1) Get token and check
         let token
-        if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-            token = req.headers.authorization.split(' ')[1]
+        if (req.headers['access-token'] && req.headers['access-token'].startsWith('Bearer')) {
+            token = req.headers['access-token'].split(' ')[1]
         }
         if (!token) {
             return res.status(403).json({
@@ -12,21 +14,17 @@ exports.protect = async (req, res, next) => {
             })
         }
         // 2) Verify token
-        const decoded = await jwt.verify(token, process.env.JWT_SECRET)
-        // 3) Check user still exists
-        const currentUser = await db.User.findOne({ where: { id: decoded.id } })
-        if (!currentUser) {
-            return res.status(403).json({
-                status: 'fail',
-                err: 'Token hết hạn'
+        await jwt.verify(token, process.env.JWT_SECRET, (err, decode) => {
+            if (err) return res.status(401).json({
+                status: 2,
+                err: 'Auth failed !'
             })
-        }
-        req.user = currentUser
+            req.user = decode
+        })
         next()
     }
     catch (err) {
-      console.log(err)
+        console.log(err)
     }
 }
 
-module.exports

@@ -5,7 +5,8 @@ const app = require('./app')
 // const DB = process.env.DATABASE
 const sequelize = new Sequelize('shopingwebdb', 'root', null, {
     host: 'localhost',
-    dialect: 'mysql'
+    dialect: 'mysql',
+    logging: false
 });
 // Check connect
 async function check() {

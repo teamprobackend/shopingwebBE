@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       customerId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         references: {
           model: 'Users',
           key: 'id'
@@ -33,7 +33,7 @@ module.exports = {
         }
       },
       status: {
-        type: Sequelize.ENUM(['waiting','on process','finish']),
+        type: Sequelize.ENUM(['waiting', 'on process', 'finish']),
         defaultValue: 'waiting'
       },
       createdAt: {
