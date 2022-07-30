@@ -56,7 +56,7 @@ export const loginService = async ({ email, pass, phone }) => new Promise(async 
         reject(error)
     }
 })
-// CHANGE PASSWORD
+// CHANGE PASSWORD 
 /*
 Idea:
 1. Client call api login. Login success => Server gererate 1 token A => save table user => next step 2

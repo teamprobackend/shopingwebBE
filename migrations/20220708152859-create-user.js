@@ -48,6 +48,9 @@ module.exports = {
       tokenChangePass: {
         type: Sequelize.STRING
       },
+      typeLogin: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

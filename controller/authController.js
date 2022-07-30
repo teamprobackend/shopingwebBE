@@ -97,3 +97,4 @@ export const updatePassword = async (req, res) => {
     })
   }
 }
+
