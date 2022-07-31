@@ -2,7 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const helmet = require('helmet') // security
 const cors = require('cors')
-const session = require('express-session');
+const session = require('express-session')
 require('dotenv').config()
 require('./passport')
 const passport = require('passport')
@@ -18,7 +18,7 @@ app.use(cors({
 }))
 
 app.use(helmet())
-app.use(morgan('dev'))
+// app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(`${__dirname}/public`))

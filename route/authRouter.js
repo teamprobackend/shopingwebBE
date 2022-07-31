@@ -8,28 +8,35 @@ const router = express.Router()
 
 router.post('/signup', authController.signup)
 router.post('/login', authController.login)
+router.get('/login-success', authController.loginSuccess)
 router.post('/send-email', protect, authController.sendEmail)
 router.get('/verify-email', authController.verifyEmail)
 router.put('/update-password', protect, authController.updatePassword)
 
 // OAUTH GOOGLE
 router.get('/google', passport.authenticate('google', { scope: ['email', 'profile'] }))
-router.get('/google/callback',
-    passport.authenticate('google', { failureRedirect: '/login' }),
-    function (req, res) {
-        // Successful authentication, redirect home.
-        res.redirect(process.env.URL_REACT_APP);
-    });
+router.get('/google/callback', function (req, res, next) {
+    passport.authenticate('google', function (err, user) {
+        if (err) { return next(err) }
+        if (!user) { return res.redirect('/login') }
+        req.user = user
+        next()
+    })(req, res, next)
+}, (req, res) => {
+    res.redirect(`${process.env.URL_REACT_APP}/login/${req.user.id}`);
+})
 
-router.get('/logout', function (req, res, next) {
-    req.logOut(() => {
-        res.status(200).clearCookie('connect.sid', {
-            path: '/'
-        });
-        req.session.destroy(function (err) {
-            res.redirect(process.env.URL_REACT_APP);
-        });
-    })
-});
+// OAUTH FACEBOOK
+router.get('/facebook', passport.authenticate('facebook', { scope: ['email'] }))
+router.get('/facebook/callback', function (req, res, next) {
+    passport.authenticate('facebook', function (err, user) {
+        if (err) { return next(err) }
+        if (!user) { return res.redirect('/login') }
+        req.user = user
+        next()
+    })(req, res, next)
+}, (req, res) => {
+    res.redirect(`${process.env.URL_REACT_APP}/login/${req.user.id}`);
+})
 
 export default router

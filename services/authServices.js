@@ -56,6 +56,24 @@ export const loginService = async ({ email, pass, phone }) => new Promise(async 
         reject(error)
     }
 })
+// LOGIN SUCCESS
+export const loginSuccessService = async (id) => new Promise(async (resolve, reject) => {
+    try {
+        const response = await db.User.findOne({
+            where: { id },
+            raw: true
+        })
+        const token = response?.id && signToken({ userId: response.id, roleId: response.roleId })
+        if (response) delete response.password
+        resolve({
+            status: response ? 0 : 1,
+            data: token
+        })
+
+    } catch (error) {
+        reject(error)
+    }
+})
 // CHANGE PASSWORD 
 /*
 Idea:

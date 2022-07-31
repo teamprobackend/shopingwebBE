@@ -39,6 +39,25 @@ export const login = async (req, res) => {
     })
   }
 }
+// LOGIN SUCCESS
+export const loginSuccess = async (req, res) => {
+  const { query } = req
+  try {
+    if (!query.id) {
+      return res.status(403).json({
+        status: 3,
+        data: 'Missing inputs'
+      })
+    }
+    const response = await authServices.loginSuccessService(query.id)
+    return res.status(200).json(response)
+  } catch (err) {
+    res.status(403).json({
+      status: -1,
+      data: err
+    })
+  }
+}
 
 // SEND MAIL AFTER LOGIN PASS
 export const sendEmail = async (req, res) => {
